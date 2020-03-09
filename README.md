@@ -21,3 +21,7 @@
 - create new object in post request and then redirect -> run
 - add find all short urls in serving root and pass as parameter to index file
 - use shortUrls obejct to fill table to show urls from server -> run
+- create new route for redirecting shortUrl at end of `server.js`
+- find url based on shortUrl, add click, save, redirect if not null -> run
+- create error page in views
+- when short url does not exist, render error with response
