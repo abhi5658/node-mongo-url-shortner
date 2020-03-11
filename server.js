@@ -9,17 +9,19 @@ mongoose.connect('mongodb://localhost:27017/url_shortner',{
 
 app.set('view engine','ejs')
 app.use(express.urlencoded({ extended: false}))
-app.use((req, res, next) => {
-    logThings(`${req.method} ${req.originalUrl}`)
-    next()
-})
 
 //ignoring favicon request https://stackoverflow.com/questions/35408729/express-js-prevent-get-favicon-ico
 app.use( function(req, res, next) {
     if (req.originalUrl && req.originalUrl.split("/").pop() === 'favicon.ico') 
-      return res.sendStatus(204);
+      return res.sendStatus(204); // returning hence favicon req does not next() to '/' route
     next();
   });
+
+
+app.use((req, res, next) => {
+    logThings(`${req.method} ${req.originalUrl}`)
+    next()
+})
 
 app.get('/', async (req, res) => {
     const shortUrls = await ShortUrlModel.find()
@@ -29,6 +31,7 @@ app.get('/', async (req, res) => {
 app.post('/shortUrls', async (req, res) => {
     await ShortUrlModel.create({ full : req.body.fullUrl })
     res.redirect('/')
+    logThings(`Storing full url: ${req.body.fullUrl}`)
 })
 
 app.get('/:shortUrl', async (req, res) => {
