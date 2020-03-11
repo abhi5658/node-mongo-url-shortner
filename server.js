@@ -14,6 +14,13 @@ app.use((req, res, next) => {
     next()
 })
 
+//ignoring favicon request https://stackoverflow.com/questions/35408729/express-js-prevent-get-favicon-ico
+app.use( function(req, res, next) {
+    if (req.originalUrl && req.originalUrl.split("/").pop() === 'favicon.ico') 
+      return res.sendStatus(204);
+    next();
+  });
+
 app.get('/', async (req, res) => {
     const shortUrls = await ShortUrlModel.find()
     res.render('index', { shortUrls: shortUrls })
@@ -21,12 +28,12 @@ app.get('/', async (req, res) => {
 
 app.post('/shortUrls', async (req, res) => {
     await ShortUrlModel.create({ full : req.body.fullUrl })
-    
     res.redirect('/')
 })
 
 app.get('/:shortUrl', async (req, res) => {
     const urlData = await ShortUrlModel.findOne({ short : req.params.shortUrl})
+    // console.log(`shortUrl: ${req.params.shortUrl}`)
     if (urlData == null){
         logThings('!!! Error 404')
         return res.render('error', {errorCode: 404})
