@@ -25,3 +25,4 @@
 - find url based on shortUrl, add click, save, redirect if not null -> run
 - create error page in views
 - when short url does not exist, render error with response
+- added app use to send response 204 for favicon request and shifted route log below this
