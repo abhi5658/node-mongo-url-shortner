@@ -40,4 +40,5 @@
 - enter credentials -> login success
 - heroku starts server on port 5000! the code has been designed to accept port from external environment
 - create heroku project: `heroku create app_name` : `heroku create short-url-abhi` : this creates a git project named short-url-abhi assosiated to heroku
+- goto heroku dashboard -> app -> settings -> config vars : add .env variables
 - push commited project to heroku master branch : `git push heroku master` : makes the project live at returned url
