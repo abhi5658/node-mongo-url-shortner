@@ -2,10 +2,29 @@ const express = require('express')
 const mongoose = require('mongoose')
 const ShortUrlModel = require('./models/short_url')
 const app = express()
+const dotenv = require('dotenv/config')
+const PORT = process.env.PORT || 5000;
 
-mongoose.connect('mongodb://localhost:27017/url_shortner',{
-    useNewUrlParser : true, useUnifiedTopology: true
-})
+let secret = {
+    server : process.env.dbserver,
+    database : process.env.dbname,
+    user : process.env.user,
+    password : process.env.password
+};
+
+// console.log(process.env.dbserver)
+// console.log(process.env.dbname)
+// console.log(process.env.user)
+// console.log(process.env.password)
+
+mongoose.connect(`mongodb+srv://${secret.user}:${secret.password}@${secret.server}/${secret.database}`,
+    { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
+
+// mongoose.connect('mongodb://localhost:27017/url_shortner',{
+//     useNewUrlParser : true, useUnifiedTopology: true
+// })
 
 app.set('view engine','ejs')
 app.use(express.urlencoded({ extended: false}))
@@ -54,5 +73,5 @@ function logThings(logData){
     console.log(`${new Date().toString()} => `,logData)
 }
 
-app.listen(process.env.PORT || 5000)
+app.listen(PORT, () => console.info(`Server listening on ${PORT}`))
 

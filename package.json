@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/abhi5658/node-mongo-url-shortner#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.3",

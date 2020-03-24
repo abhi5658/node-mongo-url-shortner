@@ -26,3 +26,18 @@
 - create error page in views
 - when short url does not exist, render error with response
 - added app use to send response 204 for favicon request and shifted route log below this
+- install dotenv `npm i dotenv`
+- create .env file for storing db credentials
+- provide arguments to database call using process.env.VARIABLE_NAME
+- issue faced: whenever `username` used as a env variable,  when invoked gave first letter capital of corresponding value. e.g. admin -> Admin
+- :: hence using `user` in this case in environment variables
+
+#### Begins heroku deployment:
+- create heroku account
+- install heroku CLI
+- goto local project git directory
+- login into heroku cli : `heroku login`
+- enter credentials -> login success
+- heroku starts server on port 5000! the code has been designed to accept port from external environment
+- create heroku project: `heroku create app_name` : `heroku create short-url-abhi` : this creates a git project named short-url-abhi assosiated to heroku
+- push commited project to heroku master branch : `git push heroku master` : makes the project live at returned url
